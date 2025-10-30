@@ -35,6 +35,14 @@
                     <span class="hud__label">Tubes</span>
                     <strong class="hud__value" id="tube-count">0</strong>
                 </div>
+                <div class="hud__assist" id="assist-controls" hidden>
+                    <span class="hud__label">Need a boost?</span>
+                    <div class="assist-controls__actions">
+                        <button id="assist-helper-tube" type="button" class="button button--ghost">Add helper tube</button>
+                        <button id="assist-skip-level" type="button" class="button button--ghost">Skip level</button>
+                    </div>
+                    <span class="hud__note">Unlocks at level 5 — one use each per level.</span>
+                </div>
             </section>
             <section class="board" id="board" aria-label="Fruit bunny tubes" aria-live="polite">
                 <!-- Tubes are rendered dynamically -->

@@ -44,9 +44,14 @@ const playAgainButton = document.getElementById('play-again');
 const levelNumberEl = document.getElementById('level-number');
 const levelTotalEl = document.getElementById('level-total');
 const levelNameEl = document.getElementById('level-name');
+const assistControlsEl = document.getElementById('assist-controls');
+const assistHelperButton = document.getElementById('assist-helper-tube');
+const assistSkipButton = document.getElementById('assist-skip-level');
 const winModal = document.getElementById('win-modal');
 const winMessageEl = winModal ? winModal.querySelector('.win-modal__message') : null;
 const tubeTemplate = document.getElementById('tube-template');
+
+const ASSIST_UNLOCK_LEVEL_INDEX = 4; // zero-based index (level 5)
 
 const animationClasses = {
     deny: 'tube--deny'
@@ -58,7 +63,11 @@ const state = {
     drag: null,
     keyboardSelection: null,
     levelIndex: 0,
-    pendingLevelIndex: null
+    pendingLevelIndex: null,
+    assist: {
+        helperTubeUsed: false,
+        skipUsed: false
+    }
 };
 
 newGameButton?.addEventListener('click', () => startLevel(state.levelIndex));
@@ -79,6 +88,8 @@ playAgainButton?.addEventListener('click', () => {
 
     startLevel(0);
 });
+assistHelperButton?.addEventListener('click', handleAssistHelperTube);
+assistSkipButton?.addEventListener('click', handleAssistSkipLevel);
 
 if (winModal) {
     winModal.addEventListener('cancel', (event) => {
@@ -102,12 +113,17 @@ function startLevel(index) {
     state.drag = null;
     state.keyboardSelection = null;
     state.pendingLevelIndex = null;
+    state.assist = {
+        helperTubeUsed: false,
+        skipUsed: false
+    };
 
     const level = LEVELS[state.levelIndex];
     state.tubes = createShuffledTubes(level);
 
     updateMoveCounter();
     updateLevelIndicator();
+    updateAssistControls();
     clearTargetHints();
     clearInvalidAnimations();
     renderBoard();
@@ -509,6 +525,62 @@ function updateLevelIndicator() {
     if (levelNameEl) {
         levelNameEl.textContent = LEVELS[state.levelIndex].name;
     }
+}
+
+function canUseAssists() {
+    return state.levelIndex >= ASSIST_UNLOCK_LEVEL_INDEX;
+}
+
+function updateAssistControls() {
+    if (!assistControlsEl) {
+        return;
+    }
+
+    const unlocked = canUseAssists();
+    assistControlsEl.hidden = !unlocked;
+
+    if (!unlocked) {
+        return;
+    }
+
+    const helperUsed = state.assist?.helperTubeUsed ?? false;
+    const skipUsed = state.assist?.skipUsed ?? false;
+
+    if (assistHelperButton) {
+        assistHelperButton.disabled = helperUsed;
+        assistHelperButton.textContent = helperUsed ? 'Helper tube used' : 'Add helper tube';
+    }
+
+    if (assistSkipButton) {
+        const onFinalLevel = isLastLevel();
+        assistSkipButton.disabled = skipUsed || onFinalLevel;
+        assistSkipButton.textContent = skipUsed
+            ? 'Level skipped'
+            : onFinalLevel
+                ? 'Final level'
+                : 'Skip level';
+    }
+}
+
+function handleAssistHelperTube() {
+    if (!canUseAssists() || state.assist?.helperTubeUsed) {
+        return;
+    }
+
+    state.tubes.push([]);
+    state.assist.helperTubeUsed = true;
+    clearTargetHints();
+    renderBoard();
+    updateAssistControls();
+}
+
+function handleAssistSkipLevel() {
+    if (!canUseAssists() || state.assist?.skipUsed || isLastLevel()) {
+        return;
+    }
+
+    state.assist.skipUsed = true;
+    startLevel(state.levelIndex + 1);
 }
 
 function describeTube(index, tube) {
