@@ -45,6 +45,21 @@
     --melon-shadow: #41afa4;
     --melon-ear: #8fefe5;
     --melon-seed: #e6fffb;
+
+    --plum-main: #8a5de8;
+    --plum-shadow: #6a3dc1;
+    --plum-ear: #b097f4;
+    --plum-seed: #ede5ff;
+
+    --cherry-main: #ff4d6d;
+    --cherry-shadow: #d82045;
+    --cherry-ear: #ff7a91;
+    --cherry-seed: #ffe0e7;
+
+    --dragonfruit-main: #ff5ec7;
+    --dragonfruit-shadow: #d633a3;
+    --dragonfruit-ear: #ff8ed9;
+    --dragonfruit-seed: #ffe5f6;
 }
 
 * {
@@ -453,6 +468,27 @@ body::before {
     --bunny-ear: var(--melon-ear);
     --bunny-seed: var(--melon-seed);
     box-shadow: inset 0 -10px 0 var(--melon-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
+}
+
+.bunny[data-fruit="plum"] {
+    --bunny-main: var(--plum-main);
+    --bunny-ear: var(--plum-ear);
+    --bunny-seed: var(--plum-seed);
+    box-shadow: inset 0 -10px 0 var(--plum-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
+}
+
+.bunny[data-fruit="cherry"] {
+    --bunny-main: var(--cherry-main);
+    --bunny-ear: var(--cherry-ear);
+    --bunny-seed: var(--cherry-seed);
+    box-shadow: inset 0 -10px 0 var(--cherry-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
+}
+
+.bunny[data-fruit="dragonfruit"] {
+    --bunny-main: var(--dragonfruit-main);
+    --bunny-ear: var(--dragonfruit-ear);
+    --bunny-seed: var(--dragonfruit-seed);
+    box-shadow: inset 0 -10px 0 var(--dragonfruit-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
 }
 
 .info {

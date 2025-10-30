@@ -7,7 +7,10 @@ const FRUIT_DEFINITIONS = [
     { key: 'kiwi', label: 'Kiwi Bunny' },
     { key: 'grape', label: 'Grape Bunny' },
     { key: 'citrus', label: 'Citrus Bunny' },
-    { key: 'melon', label: 'Melon Bunny' }
+    { key: 'melon', label: 'Melon Bunny' },
+    { key: 'plum', label: 'Plum Bunny' },
+    { key: 'cherry', label: 'Cherry Bunny' },
+    { key: 'dragonfruit', label: 'Dragonfruit Bunny' }
 ];
 
 const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
@@ -21,7 +24,11 @@ const LEVELS = [
     { name: 'Orchard Flow', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi'], helperTubes: 1 },
     { name: 'Vineyard Twist', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape'], helperTubes: 2 },
     { name: 'Sunrise Feast', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus'], helperTubes: 2 },
-    { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon'], helperTubes: 2 }
+    { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon'], helperTubes: 2 },
+    { name: 'Starlit Splash', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum'], helperTubes: 2 },
+    { name: 'Aurora Orchard', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 3 },
+    { name: 'Nebula Nibble', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 2 },
+    { name: 'Cosmic Carnival', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry', 'dragonfruit'], helperTubes: 3 }
 ];
 
 const ACTIONS = {
