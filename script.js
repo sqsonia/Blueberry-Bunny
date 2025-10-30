@@ -57,16 +57,22 @@ const state = {
     moves: 0,
     drag: null,
     keyboardSelection: null,
-    levelIndex: 0
+    levelIndex: 0,
+    pendingLevelIndex: null
 };
 
 newGameButton?.addEventListener('click', () => startLevel(state.levelIndex));
 playAgainButton?.addEventListener('click', () => {
-    const lastLevel = isLastLevel();
+    const targetLevel = state.pendingLevelIndex;
 
     closeWinModal();
 
-    if (!lastLevel) {
+    if (typeof targetLevel === 'number' && !Number.isNaN(targetLevel) && targetLevel >= 0 && targetLevel < LEVELS.length) {
+        startLevel(targetLevel);
+        return;
+    }
+
+    if (!isLastLevel()) {
         startLevel(state.levelIndex + 1);
         return;
     }
@@ -95,6 +101,7 @@ function startLevel(index) {
     state.moves = 0;
     state.drag = null;
     state.keyboardSelection = null;
+    state.pendingLevelIndex = null;
 
     const level = LEVELS[state.levelIndex];
     state.tubes = createShuffledTubes(level);
@@ -548,8 +555,11 @@ function openWinModal() {
     }
 
     if (playAgainButton) {
+        const targetLevel = isFinalLevel ? 0 : state.levelIndex + 1;
+        state.pendingLevelIndex = targetLevel;
         playAgainButton.textContent = isFinalLevel ? 'Restart adventure' : 'Next level';
         playAgainButton.dataset.action = isFinalLevel ? ACTIONS.RESTART : ACTIONS.NEXT;
+        playAgainButton.dataset.targetLevel = String(targetLevel);
     }
 
     if (typeof winModal.showModal === 'function') {
