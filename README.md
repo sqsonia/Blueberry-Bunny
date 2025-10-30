@@ -12,7 +12,7 @@ Blueberry Bunny Sort is a cozy browser puzzle where fruit-shaped bunnies hop bet
 ## How to play
 
 1. Drag the top stack of matching fruit bunnies from one tube toward another.
-2. Drop them onto a tube with the same fruit (or an empty tube) as long as there's space for the whole stack.
+2. Drop them onto any tube that has enough room for the whole stack—mixing flavors is totally fine.
 3. Keep sorting until every tube is filled with a single fruit flavor. Prefer keys? Focus a tube and press Enter/Space to pick up or drop.
 
 ## Run locally

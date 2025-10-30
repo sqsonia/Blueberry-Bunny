@@ -424,11 +424,6 @@ function canDrop(selection, targetIndex) {
         return false;
     }
 
-    const targetTop = targetTube[targetTube.length - 1];
-    if (targetTop !== selection.fruit) {
-        return false;
-    }
-
     const space = TUBE_SIZE - targetTube.length;
     return space >= selection.count;
 }
