@@ -1,22 +1,44 @@
 const TUBE_SIZE = 4;
-const FRUITS = [
+
+const FRUIT_DEFINITIONS = [
     { key: 'blueberry', label: 'Blueberry Bunny' },
     { key: 'strawberry', label: 'Strawberry Bunny' },
     { key: 'peach', label: 'Peach Bunny' },
-    { key: 'kiwi', label: 'Kiwi Bunny' }
+    { key: 'kiwi', label: 'Kiwi Bunny' },
+    { key: 'grape', label: 'Grape Bunny' },
+    { key: 'citrus', label: 'Citrus Bunny' },
+    { key: 'melon', label: 'Melon Bunny' }
 ];
 
-const FRUIT_LOOKUP = FRUITS.reduce((map, fruit) => {
+const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
     map[fruit.key] = fruit;
     return map;
 }, {});
+
+const LEVELS = [
+    { name: 'Berry Beginnings', fruits: ['blueberry', 'strawberry'], helperTubes: 1 },
+    { name: 'Garden Groove', fruits: ['blueberry', 'strawberry', 'peach'], helperTubes: 1 },
+    { name: 'Orchard Flow', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi'], helperTubes: 1 },
+    { name: 'Vineyard Twist', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape'], helperTubes: 2 },
+    { name: 'Sunrise Feast', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus'], helperTubes: 2 },
+    { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon'], helperTubes: 2 }
+];
+
+const ACTIONS = {
+    NEXT: 'next',
+    RESTART: 'restart'
+};
 
 const boardEl = document.getElementById('board');
 const moveCountEl = document.getElementById('move-count');
 const tubeCountEl = document.getElementById('tube-count');
 const newGameButton = document.getElementById('new-game');
 const playAgainButton = document.getElementById('play-again');
+const levelNumberEl = document.getElementById('level-number');
+const levelTotalEl = document.getElementById('level-total');
+const levelNameEl = document.getElementById('level-name');
 const winModal = document.getElementById('win-modal');
+const winMessageEl = winModal ? winModal.querySelector('.win-modal__message') : null;
 const tubeTemplate = document.getElementById('tube-template');
 
 const animationClasses = {
@@ -27,13 +49,19 @@ const state = {
     tubes: [],
     moves: 0,
     drag: null,
-    keyboardSelection: null
+    keyboardSelection: null,
+    levelIndex: 0
 };
 
-newGameButton?.addEventListener('click', () => initGame());
+newGameButton?.addEventListener('click', () => startLevel(state.levelIndex));
 playAgainButton?.addEventListener('click', () => {
+    const action = playAgainButton.dataset.action;
     closeWinModal();
-    initGame();
+    if (action === ACTIONS.NEXT && !isLastLevel()) {
+        startLevel(state.levelIndex + 1);
+    } else {
+        startLevel(0);
+    }
 });
 
 if (winModal) {
@@ -48,24 +76,34 @@ boardEl.addEventListener('keydown', handleKeydown);
 
 document.addEventListener('visibilitychange', handleVisibilityChange);
 
-initGame();
+startLevel(0);
 
-function initGame() {
+function startLevel(index) {
+    closeWinModal();
+    const nextIndex = clamp(index, 0, LEVELS.length - 1);
+    state.levelIndex = nextIndex;
     state.moves = 0;
     state.drag = null;
     state.keyboardSelection = null;
-    state.tubes = createShuffledTubes();
+
+    const level = LEVELS[state.levelIndex];
+    state.tubes = createShuffledTubes(level);
+
     updateMoveCounter();
+    updateLevelIndicator();
+    clearTargetHints();
+    clearInvalidAnimations();
     renderBoard();
 }
 
-function createShuffledTubes() {
-    const totalTubes = FRUITS.length + 1; // helper tube starts empty
+function createShuffledTubes(level) {
+    const fruitKeys = level.fruits;
+    const totalTubes = fruitKeys.length + level.helperTubes;
     const inventory = [];
 
-    FRUITS.forEach((fruit) => {
+    fruitKeys.forEach((fruitKey) => {
         for (let i = 0; i < TUBE_SIZE; i += 1) {
-            inventory.push(fruit.key);
+            inventory.push(fruitKey);
         }
     });
 
@@ -79,7 +117,7 @@ function createShuffledTubes() {
     });
 
     if (isSolved(tubes)) {
-        return createShuffledTubes();
+        return createShuffledTubes(level);
     }
 
     return tubes;
@@ -444,6 +482,18 @@ function updateMoveCounter() {
     moveCountEl.textContent = state.moves.toString();
 }
 
+function updateLevelIndicator() {
+    if (levelNumberEl) {
+        levelNumberEl.textContent = (state.levelIndex + 1).toString();
+    }
+    if (levelTotalEl) {
+        levelTotalEl.textContent = LEVELS.length.toString();
+    }
+    if (levelNameEl) {
+        levelNameEl.textContent = LEVELS[state.levelIndex].name;
+    }
+}
+
 function describeTube(index, tube) {
     if (!tube.length) {
         return `Tube ${index + 1}: empty`;
@@ -473,6 +523,25 @@ function getFocusedTubeIndex() {
 
 function openWinModal() {
     if (!winModal) return;
+    const isFinalLevel = isLastLevel();
+    const titleEl = winModal.querySelector('#win-title');
+    const nextLevelName = !isFinalLevel && LEVELS[state.levelIndex + 1] ? LEVELS[state.levelIndex + 1].name : null;
+
+    if (titleEl) {
+        titleEl.textContent = isFinalLevel ? 'Every bunny is home!' : 'Level cleared!';
+    }
+
+    if (winMessageEl) {
+        winMessageEl.textContent = isFinalLevel
+            ? 'You guided every fruit bunny family through the entire adventure. Ready to start again?'
+            : `Great sorting! Up next: ${nextLevelName}.`;
+    }
+
+    if (playAgainButton) {
+        playAgainButton.textContent = isFinalLevel ? 'Restart adventure' : 'Next level';
+        playAgainButton.dataset.action = isFinalLevel ? ACTIONS.RESTART : ACTIONS.NEXT;
+    }
+
     if (typeof winModal.showModal === 'function') {
         if (!winModal.open) {
             winModal.showModal();
@@ -606,4 +675,12 @@ function handleVisibilityChange() {
         cleanupDrag();
         renderBoard();
     }
+}
+
+function isLastLevel() {
+    return state.levelIndex >= LEVELS.length - 1;
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
 }

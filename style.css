@@ -35,6 +35,16 @@
     --grape-shadow: #8f5ee0;
     --grape-ear: #cba7ff;
     --grape-seed: #f1e8ff;
+
+    --citrus-main: #ffad5a;
+    --citrus-shadow: #e6851f;
+    --citrus-ear: #ffc98f;
+    --citrus-seed: #fff0db;
+
+    --melon-main: #6fd3c9;
+    --melon-shadow: #41afa4;
+    --melon-ear: #8fefe5;
+    --melon-seed: #e6fffb;
 }
 
 * {
@@ -139,6 +149,40 @@ body::before {
 .hud__value {
     font-size: 1.5rem;
     color: var(--text-primary);
+}
+
+.hud__stat--level {
+    flex: 1 1 220px;
+    min-width: 200px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.hud__level {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.hud__divider {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.hud__value--secondary {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.hud__note {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .board {
@@ -397,6 +441,20 @@ body::before {
     box-shadow: inset 0 -10px 0 var(--grape-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
 }
 
+.bunny[data-fruit="citrus"] {
+    --bunny-main: var(--citrus-main);
+    --bunny-ear: var(--citrus-ear);
+    --bunny-seed: var(--citrus-seed);
+    box-shadow: inset 0 -10px 0 var(--citrus-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
+}
+
+.bunny[data-fruit="melon"] {
+    --bunny-main: var(--melon-main);
+    --bunny-ear: var(--melon-ear);
+    --bunny-seed: var(--melon-seed);
+    box-shadow: inset 0 -10px 0 var(--melon-shadow), 0 12px 18px rgba(43, 31, 71, 0.18);
+}
+
 .info {
     background: var(--card-bg);
     border-radius: 24px;
@@ -499,6 +557,19 @@ body::before {
 
     .hud {
         justify-content: center;
+    }
+
+    .hud__stat--level {
+        align-items: center;
+        text-align: center;
+    }
+
+    .hud__level {
+        justify-content: center;
+    }
+
+    .hud__note {
+        text-align: center;
     }
 
     .tube {
