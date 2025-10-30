@@ -62,12 +62,11 @@ const state = {
 
 newGameButton?.addEventListener('click', () => startLevel(state.levelIndex));
 playAgainButton?.addEventListener('click', () => {
-    const action = playAgainButton.dataset.action;
-    const shouldAdvance = (!isLastLevel() && (action === ACTIONS.NEXT || action == null));
+    const lastLevel = isLastLevel();
 
     closeWinModal();
 
-    if (shouldAdvance) {
+    if (!lastLevel) {
         startLevel(state.levelIndex + 1);
         return;
     }
