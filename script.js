@@ -19,7 +19,8 @@ const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
 }, {});
 
 const FRUIT_ART_PATHS = {
-    blueberry: 'img/Blueberry Bunny Vector.svg'
+    blueberry: 'img/Blueberry Bunny Vector.svg',
+    strawberry: 'img/Strawberry Bunny Vector.svg'
 };
 
 const LEVELS = [
