@@ -18,6 +18,10 @@ const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
     return map;
 }, {});
 
+const FRUIT_ART_PATHS = {
+    blueberry: 'img/Blueberry Bunny Vector.svg'
+};
+
 const LEVELS = [
     { name: 'Berry Beginnings', fruits: ['blueberry', 'strawberry'], helperTubes: 1 },
     { name: 'Garden Groove', fruits: ['blueberry', 'strawberry', 'peach'], helperTubes: 1 },
@@ -232,7 +236,8 @@ function createBunny(fruitKey, { ghost = false } = {}) {
 
     const img = document.createElement('img');
     img.className = 'bunny__art';
-    img.src = `img/bunny-fruits/${fruitKey}.svg`;
+    const artSrc = FRUIT_ART_PATHS[fruitKey] ?? `img/bunny-fruits/${fruitKey}.svg`;
+    img.src = artSrc;
     img.alt = '';
     img.draggable = false;
     if (ghost) {
