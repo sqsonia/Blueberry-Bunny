@@ -229,21 +229,18 @@ function createBunny(fruitKey, { ghost = false } = {}) {
     const wrapper = document.createElement('div');
     wrapper.className = 'bunny';
     wrapper.dataset.fruit = fruitKey;
+
+    const img = document.createElement('img');
+    img.className = 'bunny__art';
+    img.src = `img/bunny-fruits/${fruitKey}.svg`;
+    img.alt = '';
+    img.draggable = false;
     if (ghost) {
         wrapper.classList.add('bunny--ghost');
-        wrapper.setAttribute('aria-hidden', 'true');
+        img.setAttribute('aria-hidden', 'true');
     }
 
-    wrapper.innerHTML = `
-        <span class="bunny__face" aria-hidden="true">
-            <span class="bunny__eye bunny__eye--left"></span>
-            <span class="bunny__nose"></span>
-            <span class="bunny__eye bunny__eye--right"></span>
-        </span>
-        <span class="bunny__seed bunny__seed--left" aria-hidden="true"></span>
-        <span class="bunny__seed bunny__seed--right" aria-hidden="true"></span>
-        <span class="bunny__seed bunny__seed--center" aria-hidden="true"></span>
-    `;
+    wrapper.appendChild(img);
 
     if (!ghost) {
         const sr = document.createElement('span');
