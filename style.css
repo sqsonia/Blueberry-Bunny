@@ -317,9 +317,11 @@ body::before {
 }
 
 .bunny__art {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
+    max-height: 120px;
     pointer-events: none;
+    object-fit: contain;
     filter: drop-shadow(0 12px 18px rgba(43, 31, 71, 0.18));
     transition: transform 0.18s ease, filter 0.18s ease;
 }
@@ -369,6 +371,7 @@ body::before {
 
 .drag-preview .bunny {
     width: 80px;
+    height: 116px;
 }
 
 .drag-preview .bunny__art {

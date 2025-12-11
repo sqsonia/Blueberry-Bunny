@@ -20,7 +20,13 @@ const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
 
 const FRUIT_ART_PATHS = {
     blueberry: 'img/Blueberry Bunny Vector.svg',
-    strawberry: 'img/Strawberry Bunny Vector.svg'
+    strawberry: 'img/Strawberry Bunny Vector.svg',
+    peach: 'img/orange.png',
+    kiwi: 'img/Green apple.png',
+    plum: 'img/plum.png',
+    melon: 'img/bannana.png',
+    grape: 'img/grapes.png',
+    cherry: 'img/raspberry.png'
 };
 
 const LEVELS = [
@@ -31,9 +37,7 @@ const LEVELS = [
     { name: 'Sunrise Feast', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus'], helperTubes: 2 },
     { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon'], helperTubes: 2 },
     { name: 'Starlit Splash', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum'], helperTubes: 2 },
-    { name: 'Aurora Orchard', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 3 },
-    { name: 'Nebula Nibble', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 2 },
-    { name: 'Cosmic Carnival', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry', 'dragonfruit'], helperTubes: 3 }
+    { name: 'Aurora Orchard', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 3 }
 ];
 
 const ACTIONS = {
