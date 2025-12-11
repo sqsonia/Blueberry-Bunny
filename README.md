@@ -4,7 +4,7 @@ Blueberry Bunny Sort is a cozy browser puzzle where fruit-shaped bunnies hop bet
 
 ## Features
 
-- 🫐 A blueberry bunny family plus strawberry, peach, kiwi, grape, citrus, melon, plum, cherry, and dragonfruit friends to juggle.
+- 🫐 A blueberry bunny family plus strawberry, kiwi, grape, melon, plum, and cherry friends to juggle.
 - ✋ Smooth drag-and-drop stacks with keyboard access for players who prefer it.
 - 📈 Eight handcrafted levels that add more tubes, helper slots, and fruit bunny families as you advance.
 - 🎯 Win detection with a celebratory modal that jumps you to the next level or restarts the adventure.

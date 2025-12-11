@@ -3,14 +3,11 @@ const TUBE_SIZE = 4;
 const FRUIT_DEFINITIONS = [
     { key: 'blueberry', label: 'Blueberry Bunny' },
     { key: 'strawberry', label: 'Strawberry Bunny' },
-    { key: 'peach', label: 'Peach Bunny' },
     { key: 'kiwi', label: 'Kiwi Bunny' },
     { key: 'grape', label: 'Grape Bunny' },
-    { key: 'citrus', label: 'Citrus Bunny' },
     { key: 'melon', label: 'Melon Bunny' },
     { key: 'plum', label: 'Plum Bunny' },
-    { key: 'cherry', label: 'Cherry Bunny' },
-    { key: 'dragonfruit', label: 'Dragonfruit Bunny' }
+    { key: 'cherry', label: 'Cherry Bunny' }
 ];
 
 const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
@@ -21,7 +18,6 @@ const FRUIT_LOOKUP = FRUIT_DEFINITIONS.reduce((map, fruit) => {
 const FRUIT_ART_PATHS = {
     blueberry: 'img/Blueberry Bunny Vector.svg',
     strawberry: 'img/Strawberry Bunny Vector.svg',
-    peach: 'img/orange.png',
     kiwi: 'img/Green apple.png',
     plum: 'img/plum.png',
     melon: 'img/bannana.png',
@@ -31,13 +27,13 @@ const FRUIT_ART_PATHS = {
 
 const LEVELS = [
     { name: 'Berry Beginnings', fruits: ['blueberry', 'strawberry'], helperTubes: 1 },
-    { name: 'Garden Groove', fruits: ['blueberry', 'strawberry', 'peach'], helperTubes: 1 },
-    { name: 'Orchard Flow', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi'], helperTubes: 1 },
-    { name: 'Vineyard Twist', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape'], helperTubes: 2 },
-    { name: 'Sunrise Feast', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus'], helperTubes: 2 },
-    { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon'], helperTubes: 2 },
-    { name: 'Starlit Splash', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum'], helperTubes: 2 },
-    { name: 'Aurora Orchard', fruits: ['blueberry', 'strawberry', 'peach', 'kiwi', 'grape', 'citrus', 'melon', 'plum', 'cherry'], helperTubes: 3 }
+    { name: 'Garden Groove', fruits: ['blueberry', 'strawberry', 'kiwi'], helperTubes: 1 },
+    { name: 'Orchard Flow', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape'], helperTubes: 1 },
+    { name: 'Vineyard Twist', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape', 'melon'], helperTubes: 2 },
+    { name: 'Sunrise Feast', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape', 'melon', 'plum'], helperTubes: 2 },
+    { name: 'Moonlit Harvest', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape', 'melon', 'plum', 'cherry'], helperTubes: 2 },
+    { name: 'Starlit Splash', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape', 'melon', 'plum', 'cherry'], helperTubes: 1 },
+    { name: 'Aurora Orchard', fruits: ['blueberry', 'strawberry', 'kiwi', 'grape', 'melon', 'plum', 'cherry'], helperTubes: 3 }
 ];
 
 const ACTIONS = {
